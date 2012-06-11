@@ -16,22 +16,22 @@ from .ansi import *
 from .config import config
 
 
-pattern = re.compile(r'[ \[\":](' + \
-	r'|'.join(config.keys()) + \
-	r')[ \]:]', flags=re.I)
+pattern = re.compile(r'[ \.\[\":](' + \
+    r'|'.join(config.keys()) + \
+    r')[ \]:]', flags=re.I)
 
 
 def search(line):
-	return re.findall(pattern, line)
+    return re.findall(pattern, line)
 
 def colourise(line):
-	m = search(line)
-	if m:
-		c = 0
-		for level in config.keys():
-			if level in m:
-				c = config[level]
-				break
-		return colour(c) + line + code(0)
-	else:
-		return line
+    m = search(line)
+    if m:
+        c = 0
+        for level in config.keys():
+            if level in m or level.upper() in m:
+                c = config[level]
+                break
+        return colour(c) + line + code(0)
+    else:
+        return line
