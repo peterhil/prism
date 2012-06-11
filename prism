@@ -16,9 +16,18 @@ sys.path.append('../lib/')
 from lib import *
 
 if __name__ != '__main__':
-	__name__ = 'prism'
+    __name__ = 'prism'
 
 if __name__ in ['__main__', 'prism']:
-	print nameplate()
-	for line in fileinput.input():
-		print colourise(line.rstrip())
+    print nameplate()
+
+    if len(sys.argv) < 1:
+        print usage()
+        quit()
+
+    try:
+        for line in fileinput.input():
+            print colourise(line.rstrip())
+    except KeyboardInterrupt:
+        fileinput.close()
+        quit()
