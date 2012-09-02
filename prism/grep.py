@@ -12,26 +12,36 @@
 
 import re
 
-from .ansi import *
-from .config import config
+from ansi import colour, code
+from config import level_map
 
+pattern = r'(?:^| |\[|\"|\'|:)' + \
+    r'(?i)(' + r'|'.join(level_map.keys()) + r')' + \
+    r'[ \]\"\':]'
 
-pattern = re.compile(r'[ \[\":](' + \
-	r'|'.join(config.keys()) + \
-	r')[ \]:]', flags=re.I)
-
+re_pattern = re.compile(pattern, flags = re.UNICODE | re.IGNORECASE)
 
 def search(line):
-	return re.findall(pattern, line)
+    return re.findall(re_pattern, line)
 
-def colourise(line):
-	m = search(line)
-	if m:
-		c = 0
-		for level in config.keys():
-			if level in m:
-				c = config[level]
-				break
-		return colour(c) + line + code(0)
-	else:
-		return line
+def colourise(line, grep=False, match_only=True):
+    m = search(line)
+    if m:
+        s = map(lambda s: s.lower(), m)
+        colour_name = 0
+
+        if match_only:
+            matches = re.finditer(re_pattern, line)
+            for m in reversed(list(matches)):
+                if m.group(1).lower() in level_map.keys():
+                    colour_name = level_map[m.group(1).lower()]
+                line = line[0:m.start()] + colour(colour_name) + line[m.start():m.end()] + code(0) + line[m.end():len(line)]
+            return line
+        else:
+            for level in level_map.keys():
+                if level in s:
+                    colour_name = level_map[level]
+                    break
+            return colour(colour_name) + line + code(0)
+    else:
+        return '' if grep else line
