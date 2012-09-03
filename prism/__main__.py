@@ -26,7 +26,7 @@ from watchdog.events import LoggingEventHandler
 
 from ansi import code, colour
 from events import PrismEventHandler
-from output import log, outputlines
+from output import log, outputlines, tail
 
 
 def usage():
@@ -38,6 +38,7 @@ Options:
 -g   show only matched lines (like grep)
 -m   only colour matched parts of lines (default: colourise whole line)
 -w   use watchdog to monitor for changes (acts like tail -f)
+-t   use tail function (use 'prism -t test.log' instead of 'tail -f test.log | prism')
 
 -h   this help
 -d   enable debug logging
@@ -78,6 +79,7 @@ if __name__ in ['__main__', 'prism']:
 
     config.grep_opt = False
     config.match_opt = False
+    config.tail_opt = False
 
     if len(sys.argv) > 1:
         if '-h' in sys.argv:
@@ -86,6 +88,9 @@ if __name__ in ['__main__', 'prism']:
         if '-d' in sys.argv:
             log.setLevel(logging.DEBUG)
             sys.argv.pop(sys.argv.index('-d'))
+        if '-t' in sys.argv:
+            config.tail_opt = True
+            sys.argv.pop(sys.argv.index('-t'))
         if '-m' in sys.argv:
             config.match_opt = True
             sys.argv.pop(sys.argv.index('-m'))
@@ -95,7 +100,16 @@ if __name__ in ['__main__', 'prism']:
 
     log.debug("Processed args: %s" % sys.argv)
 
-    if len(sys.argv) == 1 or len(sys.argv) == 2 and sys.argv[1] == '-':
+    if config.tail_opt:
+        log.info("Using TAIL. Press ^C to quit. For help, see 'prism -h'.")
+        gen = tail(
+            fileinput.input(sys.argv[1:], bufsize = buffer_size),
+            grep = config.grep_opt,
+            match_only = config.match_opt
+        )
+        while 1:
+            print(next(gen))
+    elif len(sys.argv) == 1 or len(sys.argv) == 2 and sys.argv[1] == '-':
         log.info("Using STDIN. Press ^C to quit. For help, see 'prism -h'.")
         outputlines(sys.stdin, grep = config.grep_opt, match_only = config.match_opt)
     elif len(sys.argv) > 1 and sys.argv[1] == '-w':
