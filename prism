@@ -11,6 +11,8 @@
 # See: http://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes
 
 import sys
+import time
+
 sys.path.append('../lib/')
 
 from lib import *
@@ -18,16 +20,27 @@ from lib import *
 if __name__ != '__main__':
     __name__ = 'prism'
 
+def tail():
+    fi = fileinput.input()
+    while True:
+        try:
+            line = fi.readline()
+            if not line:
+                #print "Sleeping"
+                time.sleep(0.25)
+                continue
+            yield colourise(line.rstrip())
+        except KeyboardInterrupt:
+            fi.close()
+            quit()
+
 if __name__ in ['__main__', 'prism']:
     print nameplate()
 
-    if len(sys.argv) < 1:
+    if len(sys.argv) == 0:
         print usage()
         quit()
 
-    try:
-        for line in fileinput.input():
-            print colourise(line.rstrip())
-    except KeyboardInterrupt:
-        fileinput.close()
-        quit()
+    gen = tail()
+    while True:
+        print next(gen)

@@ -16,7 +16,7 @@ from .ansi import *
 from .config import config
 
 
-pattern = re.compile(r'[ \.\[\":](' + \
+pattern = re.compile(r'[ \.\[\":=](' + \
     r'|'.join(config.keys()) + \
     r')[ \]:]', flags=re.I)
 
