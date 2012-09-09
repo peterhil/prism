@@ -10,6 +10,7 @@
 import fileinput
 import logging
 import sys
+import time
 from .grep import colourise
 
 log = logging.getLogger('Prism')
@@ -34,3 +35,15 @@ def outputlines(fi, grep=False, match_only=False, watch=True):
     except IOError as e:
         log.error(e)
         quit()
+
+def tail(fi, grep=False, match_only=False):
+    while 1:
+        try:
+            line = fi.readline()
+            if not line:
+                time.sleep(0.00125)
+                continue
+            yield colourise(line.rstrip(), grep, match_only)
+        except KeyboardInterrupt:
+            fi.close()
+            quit()
