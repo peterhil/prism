@@ -7,12 +7,12 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-import config
+from . import config
 import fileinput
 import os
 import sys
 
-from output import log, outputlines
+from .output import log, outputlines
 from watchdog.events import FileSystemEventHandler
 
 
@@ -29,7 +29,7 @@ class PrismEventHandler(FileSystemEventHandler):
 
         if what == 'file':
             if event.src_path in self._files or os.path.dirname(event.src_path) in self._files:
-                print("\n==> %s <==" % os.path.basename(event.src_path))
+                print(("\n==> %s <==" % os.path.basename(event.src_path)))
                 outputlines(fileinput.input(event.src_path), grep=config.grep_opt, match_only=config.match_opt)
             else:
                 log.debug("Skipping not watched file: %s" % event.src_path)
