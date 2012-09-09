@@ -10,7 +10,7 @@
 import fileinput
 import logging
 import sys
-from grep import colourise
+from .grep import colourise
 
 log = logging.getLogger('Prism')
 log.addHandler(logging.StreamHandler(sys.stderr))
@@ -31,6 +31,6 @@ def outputlines(fi, grep=False, match_only=False, watch=True):
                     sys.stdout.write(colourise(line, grep, match_only))
                 else:
                     sys.stdout.write(colourise(line, grep, match_only))
-    except IOError, e:
+    except IOError as e:
         log.error(e)
         quit()

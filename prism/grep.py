@@ -12,11 +12,11 @@
 
 import re
 
-from ansi import colour, code
-from config import level_map
+from .ansi import colour, code
+from .config import level_map
 
 pattern = r'(?:^| |\[|\"|\'|:)' + \
-    r'(?i)(' + r'|'.join(level_map.keys()) + r')' + \
+    r'(?i)(' + r'|'.join(list(level_map.keys())) + r')' + \
     r'[ \]\"\':]'
 
 re_pattern = re.compile(pattern, flags = re.UNICODE | re.IGNORECASE)
@@ -27,18 +27,18 @@ def search(line):
 def colourise(line, grep=False, match_only=True):
     m = search(line)
     if m:
-        s = map(lambda s: s.lower(), m)
+        s = [s.lower() for s in m]
         colour_name = 0
 
         if match_only:
             matches = re.finditer(re_pattern, line)
             for m in reversed(list(matches)):
-                if m.group(1).lower() in level_map.keys():
+                if m.group(1).lower() in list(level_map.keys()):
                     colour_name = level_map[m.group(1).lower()]
                 line = line[0:m.start()] + colour(colour_name) + line[m.start():m.end()] + code(0) + line[m.end():len(line)]
             return line
         else:
-            for level in level_map.keys():
+            for level in list(level_map.keys()):
                 if level in s:
                     colour_name = level_map[level]
                     break
