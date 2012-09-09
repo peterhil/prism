@@ -10,14 +10,12 @@
 # This module generates ANSI character codes for terminals.
 # See: http://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes
 
-from itertools import ifilter
+import sys
 
+if sys.version_info < (3, 0):
+    from itertools import ifilter as filter
 
-__all__ = [
-	'code',
-	'colourcode',
-	'colour'
-]
+__all__ = ['code', 'colourcode', 'colour']
 
 
 CSI = '\x1b['
@@ -61,7 +59,7 @@ def colourcode(name, back=False):
 	bright = BRIGHT * int('bright' in parts)
 
 	try:
-		colourname = next(ifilter(lambda s: s in COLOUR, parts), None)
+		colourname = next(filter(lambda s: s in COLOUR, parts), None)
 	except StopIteration:
 		pass
 

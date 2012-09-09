@@ -12,10 +12,12 @@
 
 import sys
 
-if sys.version > '2.7.0':
+if sys.version_info >= (2, 7, 0):
     from collections import OrderedDict as od
 else:
     from ordereddict import OrderedDict as od
+
+__all__ = ['level_map']
 
 
 level_map = od([
