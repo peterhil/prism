@@ -15,7 +15,7 @@ import re
 from .ansi import colour, code
 from .config import level_map
 
-pattern = r'(?:^| |\[|\"|\'|:)' + \
+pattern = r'(?:^| |\[|\"|\'|:|=)' + \
     r'(?i)(' + r'|'.join(list(level_map.keys())) + r')' + \
     r'[ \]\"\':]'
 
