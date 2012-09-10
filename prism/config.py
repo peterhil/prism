@@ -37,11 +37,19 @@ level_map = od([
     # HTTP methods
     ('post',            'bright red'),
     ('delete',          'bright red'),
-    ('update',          'bright yellow'),
     ('put',             'bright yellow'),
     ('patch',           'bright yellow'),
+    ('update',          'bright green'),
     ('get',             'bright green'),
     ('head',            'bright cyan'),
+
+    # SQL logs
+    ('drop',            'red'),
+    ('alter',           'bright red'),
+    ('create',          'bright yellow'),
+    ('insert',          'bright yellow'),
+    ('pragma',          'bright green'),
+    ('select',          'bright cyan'),
 
     ('notice',          'bright green'),
     ('note',            'bright green'),
