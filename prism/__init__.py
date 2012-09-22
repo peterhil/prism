@@ -11,6 +11,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 
+import argparse
 import fileinput
 import logging
 import os
@@ -41,7 +42,8 @@ def usage():
 Options:
 ---------
 -g   show only matched lines (like grep)
--m   only colour matched parts of lines (default: colourise whole line)""" + \
+-m   only colour matched parts of lines (default: colourise whole line)
+""" + \
 ("-w   use watchdog to monitor for changes (acts like tail -f)" if use_watchdog else "") + \
 """
 -t   use tail function (use 'prism -t test.log' instead of 'tail -f test.log | prism')
@@ -67,6 +69,30 @@ Copyright (c) 2012, Peter Hillerström
 Homepage: https://github.com/peterhil/prism"""
 __doc__ = usage()
 
+def examples():
+    return """EXAMPLES
+
+  prism -g /var/log/*.log
+  prism -m /var/log/apache2/*log
+  prism /opt/local/var/macports/logs/*/*.log
+
+watching mode:
+  tail -f /var/log/system.log | prism
+  tail -f /var/log/system.log | prism -""" + \
+("""
+
+watch directories or files with watchdog:
+  prism -w .
+  prism -w /opt/local/var/log/nginx/*.log """ if use_watchdog else "") + \
+"""
+
+ABOUT
+
+  Copyright (c) 2012, Peter Hillerström
+  license: 3-clause BSD license
+  github: https://github.com/peterhil/prism
+"""
+
 def prism_logo():
     res = ''
     for c, letter in zip('rygcb', 'PRISM'):
@@ -90,24 +116,63 @@ def command():
     config.match_opt = False
     config.tail_opt = False
 
-    if len(sys.argv) > 1:
-        if '-h' in sys.argv:
-            log.info(usage() + "\n")
-            quit()
-        if '-d' in sys.argv:
-            log.setLevel(logging.DEBUG)
-            sys.argv.pop(sys.argv.index('-d'))
-        if '-t' in sys.argv:
-            config.tail_opt = True
-            sys.argv.pop(sys.argv.index('-t'))
-        if '-m' in sys.argv:
-            config.match_opt = True
-            sys.argv.pop(sys.argv.index('-m'))
-        if '-g' in sys.argv:
-            config.grep_opt = True
-            sys.argv.pop(sys.argv.index('-g'))
+    argp = argparse.ArgumentParser(
+        prog = __name__,
+        add_help = True,
+        formatter_class = argparse.RawDescriptionHelpFormatter,
+        description = colour('magenta') + usage() + code(0),
+        epilog = colour('magenta') + examples() + code(0))
 
-    log.debug("Processed args: %s" % sys.argv)
+    argm = argp.add_argument_group('match parts')
+    argm.add_argument(
+        '-l', '--line',
+        action='store_false',
+        help='colour whole lines with the highest level matched')
+    # argm.add_argument(
+    #     '-m', '--match',
+    #     action='store_true', help='colour multiple matched parts on line (default)')
+    argm.add_argument(
+        '-g', '--grep',
+        action='store_false', help='show only matched lines (like grep)')
+    argm.add_argument(
+        '-t', '--tail',
+        action='store_false', help="use simple 'tail -f' function")
+    if use_watchdog:
+        argm.add_argument(
+            '-w', '--watch',
+            action='store_false', help='use watchdog to monitor for changes (acts like tail -f)')
+
+    arg_diag = argp.add_argument_group('diagnostics')
+    # arg_meta.add_argument(
+    #     '-h', '--help',
+    #     action='store_false', help='show this help message and exit')
+    arg_diag.add_argument(
+        '-d', '--debug',
+        action='store_false', help='enable debug logging')
+
+    args = argp.parse_args(sys.argv[1:])
+
+    log.debug("Processed args: %s" % args)
+    print("Processed args: %s" % args)
+
+    # if len(sys.argv) > 1:
+    #     if '-h' in sys.argv:
+    #         log.info(usage() + "\n")
+    #         quit()
+    #     if '-d' in sys.argv:
+    #         log.setLevel(logging.DEBUG)
+    #         sys.argv.pop(sys.argv.index('-d'))
+    #     if '-t' in sys.argv:
+    #         config.tail_opt = True
+    #         sys.argv.pop(sys.argv.index('-t'))
+    #     if '-m' in sys.argv:
+    #         config.match_opt = True
+    #         sys.argv.pop(sys.argv.index('-m'))
+    #     if '-g' in sys.argv:
+    #         config.grep_opt = True
+    #         sys.argv.pop(sys.argv.index('-g'))
+
+    quit()
 
     if config.tail_opt:
         log.info("Using TAIL. Press ^C to quit. For help, see 'prism -h'.")
