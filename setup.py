@@ -14,7 +14,7 @@ PACKAGE_NAME = 'logprism'
 PACKAGE_VERSION = '0.1.0'
 PACKAGES = ['prism']
 
-with open('README.rst', 'r') as readme
+with open('README.rst', 'r') as readme:
     README_TEXT = readme.read()
 
 setup(

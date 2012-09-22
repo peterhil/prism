@@ -2,23 +2,13 @@
 Prism — colourful logs
 ======================
 
-A command line log colouriser utility. See 'prism -h' for help and usage.
-Tested with Python 2.6, Python 2.7 and Python 3.2.
+A command line log colouriser utility.
 
 
 Installation
 ------------
 
     (sudo) pip install logprism
-
-
-Dependencies
-------------
-
-- argh (argument parsing)
-- ordereddict (if using Python 2.6)
-- pytest (for testing)
-- watchdog (for watching log files with -w option)
 
 
 Usage examples
