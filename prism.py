@@ -5,6 +5,7 @@ This file is part of Prism log colouriser utility
 Copyright (c) 2012 Peter Hillerström. All rights reserved.
 """
 
+import prism
+
 if __name__ == '__main__':
-    import prism
-    prism.command()
+    prism.main()
