@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python -u
 # encoding: utf-8
 #
 # Copyright (c) 2012, Peter Hillerström <peter.hillerstrom@gmail.com>
@@ -8,7 +8,7 @@
 # file that was distributed with this source code.
 
 import pytest
-from ..ansi import code, colour, colourcode
+from prism.colour import code, colour, colourcode
 
 @pytest.mark.parametrize(("code", "name"), [
     # invalid
@@ -31,3 +31,4 @@ def test_colourcode(code, name):
 
 def test_colour():
     assert '\x1b[31;m' == colour('RED')
+

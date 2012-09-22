@@ -1,0 +1,7 @@
+include *.rst
+include *.txt
+include bin/prism
+include LICENSE
+recursive-include prism *.txt *.py
+prune __pycache__
+prune *.bak

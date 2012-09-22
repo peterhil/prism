@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python -u
 # encoding: utf-8
 #
 # Copyright (c) 2012, Peter Hillerström <peter.hillerstrom@gmail.com>
@@ -19,3 +19,4 @@ def log_lines():
 def test_search():
     for line in log_lines():
         assert search(line), "Regexp pattern '{0}' didn't match line '{1}'".format(pattern, line)
+
