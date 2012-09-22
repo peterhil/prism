@@ -10,7 +10,7 @@
 import sys
 from distutils.core import setup
 
-PACKAGE_NAME = 'Prism'
+PACKAGE_NAME = 'logprism'
 PACKAGE_VERSION = '0.1.0'
 PACKAGES = ['prism']
 
@@ -26,7 +26,7 @@ setup(
     ],
     scripts=['bin/prism'],
 
-    description="#{PACKAGE_NAME} – colourise log levels and other keys on log files (with ANSI characters codes)",
+    description="Prism – Colourise log files (with ANSI characters codes)",
     author='Peter Hillerström',
     author_email='peter.hillerstrom@gmail.com',
     license='BSD License',
