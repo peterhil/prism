@@ -15,7 +15,7 @@ import os
 import sys
 
 from prism import config
-from prism.colour import nameplate
+from prism.colour import prism_logo
 from prism.output import log, outputlines, tail, watch
 
 try:
@@ -25,7 +25,7 @@ except ImportError as e:
     use_watchdog = False
 
 __all__ = ['usage', 'main']
-__doc__ = """Prism colourises log files with ANSI character codes
+__doc__ = """Prism – colourise log levels and other keys on log files (with ANSI characters codes)
 
 USAGE
 
@@ -64,7 +64,7 @@ def usage():
     return __doc__
 
 def main():
-    log.info(nameplate())
+    log.info(prism_logo())
 
     config.buffer_size = 1
     config.grep_opt = False

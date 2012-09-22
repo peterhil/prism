@@ -7,6 +7,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
+import math
 import sys
 
 if sys.version_info < (3, 0):
@@ -73,12 +74,15 @@ def colourcode(name, back=False):
 def colour(fore='', back=''):
     return CSI + str(colourcode(fore)) + ';' + str(colourcode(back, back=True)) + 'm'
 
-def prism_logo():
+def logo(text, colours='rygcb', repeat=True):
     res = ''
-    for c, letter in zip('rygcb', 'PRISM'):
+    if repeat:
+        # Repeat colours string to make it at least as long as text
+        colours *= int(math.ceil(len(text) / len(colours)))
+    for c, letter in zip(colours, text):
         res += '{0} {1} '.format(colour(c, 'bright ' + c), letter)
     return res + code(0)
 
-def nameplate():
-    return "\n {0}\n  {1} coloured logs \n{2}".format(prism_logo(), code(7), code(0))
+def prism_logo():
+    return "\n {0}\n  {1} coloured logs \n{2}".format(logo('PRISM', 'rygcb'), code(7), code(0))
 
