@@ -14,6 +14,9 @@ PACKAGE_NAME = 'logprism'
 PACKAGE_VERSION = '0.1.0'
 PACKAGES = ['prism']
 
+with open('README.rst', 'r') as readme
+    README_TEXT = readme.read()
+
 setup(
     name=PACKAGE_NAME,
     version=PACKAGE_VERSION,
@@ -27,6 +30,7 @@ setup(
     scripts=['bin/prism'],
 
     description="Prism – Colourise log files (with ANSI characters codes)",
+    long_description=README_TEXT,
     author='Peter Hillerström',
     author_email='peter.hillerstrom@gmail.com',
     license='BSD License',
