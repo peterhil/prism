@@ -6,3 +6,10 @@
 #
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
+
+import logging
+import sys
+
+log = logging.getLogger('Prism')
+log.addHandler(logging.StreamHandler(sys.stderr))
+log.setLevel(logging.INFO)

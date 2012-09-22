@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python -u
 # encoding: utf-8
 #
 # Copyright (c) 2012, Peter Hillerström <peter.hillerstrom@gmail.com>
@@ -12,8 +12,8 @@
 
 import re
 
-from .ansi import colour, code
-from .config import level_map
+from prism.colour import colour, code
+from prism.config import level_map
 
 pattern = r'(?:^| |\[|\"|\'|:|=|\.)' + \
     r'(?i)(' + r'|'.join(list(level_map.keys())) + r')' + \
@@ -45,3 +45,4 @@ def colourise(line, grep=False, match_only=True):
             return colour(colour_name) + line + code(0)
     else:
         return '' if grep else line
+
