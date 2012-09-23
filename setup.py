@@ -8,7 +8,7 @@
 # file that was distributed with this source code.
 
 import sys
-from distutils.core import setup
+from distutils.core import setup, Command
 
 PACKAGE_NAME = 'logprism'
 PACKAGE_VERSION = '0.1.1'
@@ -16,6 +16,17 @@ PACKAGES = ['prism']
 
 with open('README.rst', 'r') as readme:
     README_TEXT = readme.read()
+
+class PyTest(Command):
+    user_options = []
+    def initialize_options(self):
+        pass
+    def finalize_options(self):
+        pass
+    def run(self):
+        import sys,subprocess
+        errno = subprocess.call([sys.executable, 'runtests.py'])
+        raise SystemExit(errno)
 
 setup(
     name=PACKAGE_NAME,
@@ -57,5 +68,8 @@ setup(
         'Topic :: System :: Systems Administration',
         'Topic :: Text Processing :: Filters',
         'Topic :: Utilities',
-    ]
+    ],
+    cmdclass = {
+        'test': PyTest
+    },
 )
