@@ -45,6 +45,12 @@ Usage examples
 - prism /opt/local/var/macports/logs/\*\/\*.log
 
 
+Test
+----
+
+    python setup.py test
+
+
 Todo
 ----
 
