@@ -11,7 +11,7 @@ import sys
 from distutils.core import setup
 
 PACKAGE_NAME = 'logprism'
-PACKAGE_VERSION = '0.1.0'
+PACKAGE_VERSION = '0.1.1'
 PACKAGES = ['prism']
 
 with open('README.rst', 'r') as readme:
