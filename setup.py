@@ -11,7 +11,7 @@ import sys
 from distutils.core import setup
 
 PACKAGE_NAME = 'logprism'
-PACKAGE_VERSION = '0.1.0'
+PACKAGE_VERSION = '0.1.1'
 PACKAGES = ['prism']
 
 with open('README.rst', 'r') as readme:
@@ -23,9 +23,7 @@ setup(
     packages=PACKAGES,
     requires = [
         'argh (>=0.15.0)',
-        'watchdog (>=0.6.0)',
-        'ordereddict (>=1.1)' if sys.version <= (2, 7, 0) else 'collections',
-        'pytest (>=2.2.0)',
+        'ordereddict (>=1.1)' if sys.version_info <= (2, 7, 0) else 'collections',
     ],
     scripts=['bin/prism'],
 
