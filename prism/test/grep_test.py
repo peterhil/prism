@@ -8,7 +8,7 @@
 # file that was distributed with this source code.
 
 import pytest
-from ..grep import pattern, search
+from prism.grep import pattern, search
 
 def log_lines():
     return [
@@ -19,4 +19,3 @@ def log_lines():
 def test_search():
     for line in log_lines():
         assert search(line), "Regexp pattern '{0}' didn't match line '{1}'".format(pattern, line)
-
