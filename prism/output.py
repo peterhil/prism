@@ -12,16 +12,12 @@ import os
 import sys
 import time
 
-from prism import config
-from prism.events import PrismEventHandler
+from prism.config import options
 from prism.log import log
 from prism.grep import colourise
 
-try:
-    from watchdog.observers import Observer
-    use_watchdog = True
-except ImportError as e:
-    use_watchdog = False
+if options.use_watchdog:
+    from prism.events import PrismEventHandler
 
 # Unbuffered I/O not allowed on Python 3
 # See http://bugs.python.org/issue11633 for conversation
@@ -64,19 +60,23 @@ def tail():
 
     log.info("Using TAIL. Press ^C to quit. For help, see 'prism -h'.")
     gen = tail_generator(
-        fileinput.input(sys.argv, bufsize = config.buffer_size),
-        grep = config.grep_opt,
-        match_only = config.match_opt
+        fileinput.input(sys.argv[1:], bufsize = options.buffer_size),
+        grep = options.grep_opt,
+        match_only = options.match_opt
     )
     while 1:
         print(next(gen))
 
 def watch_output(event):
     print(("\n==> %s <==" % os.path.basename(event.src_path)))
-    outputlines(fileinput.input(event.src_path), grep=config.grep_opt, match_only=config.match_opt)
+    outputlines(fileinput.input(event.src_path), grep=options.grep_opt, match_only=options.match_opt)
 
 def watch():
-    fi = fileinput.input(sys.argv[1:], bufsize = config.buffer_size)
+    if not options.use_watchdog:
+        log.error("Watchdog not installed.")
+        quit()
+
+    fi = fileinput.input(sys.argv[1:], bufsize = options.buffer_size)
     paths = fi._files
     log.info("Using FILEINPUT with WATCHDOG for files: %s" % (', '.join(paths),))
 

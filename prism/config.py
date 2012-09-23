@@ -14,15 +14,20 @@ if sys.version_info >= (2, 7, 0):
 else:
     from ordereddict import OrderedDict as od
 
-__all__ = ['level_map']
+__all__ = ['level_map', 'options']
 
+class options(object):
+    use_watchdog = False
+    buffer_size = 1
+    grep_opt = False
+    match_opt = False
+    tail_opt = False
 
 level_map = od([
     ('fatal',           'red'),
     ('critical',        'red'),
     ('failure',         'red'),
     ('fail',            'red'),
-    ('fatal',           'red'),
     ('fatal error',     'red'),
 
     ('error',           'bright red'),
