@@ -23,9 +23,7 @@ setup(
     packages=PACKAGES,
     requires = [
         'argh (>=0.15.0)',
-        'watchdog (>=0.6.0)',
-        'ordereddict (>=1.1)' if sys.version <= (2, 7, 0) else 'collections',
-        'pytest (>=2.2.0)',
+        'ordereddict (>=1.1)' if sys.version_info <= (2, 7, 0) else 'collections',
     ],
     scripts=['bin/prism'],
 
