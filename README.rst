@@ -13,7 +13,7 @@ From Python package index (Pypi_):
 
 or from Github_:
 
-    (sudo) pip install argh watchdog
+    (sudo) pip install watchdog  # optional
 
     git clone https://github.com/peterhil/prism.git
 
