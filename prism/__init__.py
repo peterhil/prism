@@ -24,6 +24,9 @@ try:
 except ImportError as e:
     pass
 
+
+VERSION = '0.1.2'
+
 __all__ = ['usage', 'main']
 __doc__ = """Prism – colourise log levels and other keys on log files (with ANSI characters codes)
 
@@ -64,7 +67,7 @@ def usage():
     return __doc__
 
 def main():
-    log.info(prism_logo())
+    log.info(prism_logo('version: ' + VERSION))
 
     if len(sys.argv) > 1:
         if '-h' in sys.argv:

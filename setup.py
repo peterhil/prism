@@ -12,8 +12,10 @@ from __future__ import with_statement
 import sys
 from distutils.core import setup, Command
 
+from prism import VERSION
+
 PACKAGE_NAME = 'logprism'
-PACKAGE_VERSION = '0.1.1'
+PACKAGE_VERSION = VERSION
 PACKAGES = ['prism']
 
 with open('README.rst', 'r') as readme:

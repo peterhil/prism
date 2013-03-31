@@ -89,6 +89,6 @@ def logo(text, colours='rygcb', repeat=True):
         res += '{0} {1} '.format(colour(c, 'bright ' + c), letter)
     return res + code(0)
 
-def prism_logo():
-    return "\n {0}\n  {1} coloured logs \n{2}".format(logo('PRISM', 'rygcb'), code(7), code(0))
+def prism_logo(extra=''):
+    return "\n {0}\n  {1} coloured logs {2}  {3}\n".format(logo('PRISM', 'rygcb'), code(7), code(0), extra)
 
