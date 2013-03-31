@@ -15,9 +15,9 @@ import re
 from prism.colour import colour, code
 from prism.config import level_map
 
-pattern = r'(?:^| |\[|\"|\'|:|=|\.)' + \
+pattern = r'(?:^|[:\[]|(?<=[ \"\'=\.]))' + \
     r'(?i)(' + r'|'.join(list(level_map.keys())) + r')' + \
-    r'[ \]\"\':]'
+    r'(?:[:\]]|$]|(?=[ \"\'=]))'
 
 re_pattern = re.compile(pattern, flags = re.UNICODE | re.IGNORECASE)
 
