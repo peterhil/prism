@@ -31,7 +31,6 @@ All dependencies can be installed with pip_, usually by:
 
 Required (automatically handled by pip):
 
-- argh (argument parsing)
 - ordereddict (if using Python 2.6)
 
 Optional (install manually with pip):
@@ -94,8 +93,6 @@ Run continuous integration with tox (from an activated virtualenv, use tox -r to
 
 Todo
 ----
-
-- Fix colouring when using Apple Terminal.app. Please use iTerm2 or some other terminal for now.
 
 - Show some tail lines when using -w: Make a line cache (count total lines with `wc -l`) from the end of the file using some blocksize.
 

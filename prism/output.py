@@ -30,15 +30,15 @@ def outputlines(fi, grep=False, match_only=False, watch=True):
             fi = sys.stdin
             while 1:
                 try:
-                    sys.stdout.write(colourise(fi.readline(), grep, match_only))
+                    line = fi.readline()
+                    if line:
+                        sys.stdout.write(colourise(line, grep, match_only))
                 except KeyboardInterrupt:
                     break
         else:
             for line in fi:
-                if fi.isstdin():
-                    sys.stdout.write(colourise(line, grep, match_only))
-                else:
-                    sys.stdout.write(colourise(line, grep, match_only))
+                sys.stdout.write(colourise(line, grep, match_only))
+
     except IOError as e:
         log.error(e)
         quit()

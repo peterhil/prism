@@ -13,7 +13,6 @@ import fileinput
 import logging
 import os
 import sys
-import prism.test
 
 from prism.config import options
 from prism.colour import prism_logo
@@ -25,6 +24,9 @@ try:
 except ImportError as e:
     pass
 
+
+VERSION = '0.1.2'
+
 __all__ = ['usage', 'main']
 __doc__ = """Prism – colourise log levels and other keys on log files (with ANSI characters codes)
 
@@ -33,7 +35,7 @@ USAGE
 Options:
 ---------
 -g   show only matched lines (like grep)
--m   only colour matched parts of lines (default: colourise whole line)""" + \
+-m   only colour matched parts of lines (default: colourise whole line)\n""" + \
 ("-w   use watchdog to monitor for changes (acts like tail -f)" if options.use_watchdog else "") + \
 """
 -t   use tail function (use 'prism -t test.log' instead of 'tail -f test.log | prism')
@@ -65,7 +67,7 @@ def usage():
     return __doc__
 
 def main():
-    log.info(prism_logo())
+    log.info(prism_logo('version: ' + VERSION))
 
     if len(sys.argv) > 1:
         if '-h' in sys.argv:
@@ -98,4 +100,3 @@ def main():
         log.info("Using fileinput.")
         fi = fileinput.input(sys.argv[1:], bufsize = options.buffer_size)
         outputlines(fi, grep = options.grep_opt, match_only = options.match_opt)
-

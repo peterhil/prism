@@ -24,42 +24,48 @@ class options(object):
     tail_opt = False
 
 level_map = od([
-    ('fatal',           'red'),
-    ('critical',        'red'),
-    ('failure',         'red'),
-    ('fail',            'red'),
-    ('fatal error',     'red'),
+    ('emerg',           ['black', 'bright red']),
+    ('alert',           ['black', 'bright red']),
+    ('critical',        ['black', 'bright red']),
+    ('crit',            ['black', 'bright red']),
+    ('fatal error',     ['black', 'bright red']),
+    ('fatal',           ['black', 'bright red']),
+    ('failure',         ['black', 'bright red']),
+    ('fail',            ['black', 'bright red']),
 
-    ('error',           'bright red'),
-    ('parse error',     'bright red'),
+    ('parse error',     ['bright red']),
+    ('error',           ['bright red']),
 
-    ('warning',         'bright yellow'),
-    ('warn',            'bright yellow'),
+    ('warning',         ['bright yellow']),
+    ('warn',            ['bright yellow']),
 
     # HTTP methods
-    ('post',            'bright red'),
-    ('delete',          'bright red'),
-    ('put',             'bright yellow'),
-    ('patch',           'bright yellow'),
-    ('update',          'bright green'),
-    ('get',             'bright green'),
-    ('head',            'bright cyan'),
+    ('post',            ['bright red', 'red']),
+    ('delete',          ['bright red', 'red']),
+    ('put',             ['bright yellow', 'yellow']),
+    ('patch',           ['bright yellow', 'yellow']),
+    ('update',          ['bright green', ' yellow']),
+    ('get',             ['bright cyan', 'cyan']),
+    ('head',            ['bright green', 'green']),
 
     # SQL logs
-    ('drop',            'red'),
-    ('alter',           'bright red'),
-    ('create',          'bright yellow'),
-    ('insert',          'bright yellow'),
-    ('pragma',          'bright green'),
-    ('select',          'bright cyan'),
+    ('drop',            ['black', 'bright red']),
+    ('alter',           ['bright red']),
+    ('create',          ['bright yellow']),
+    ('insert',          ['bright green']),
+    ('pragma',          ['bright magenta']),
+    ('select',          ['bright cyan']),
 
-    ('notice',          'bright green'),
-    ('note',            'bright green'),
+    ('failed',          ['bright yellow']),
+    ('invalid',         ['bright yellow']),
 
-    ('info',            'bright cyan'),
+    ('notice',          ['bright green']),
+    ('note',            ['bright green']),
 
-    ('debug',           'bright magenta'),
+    ('info',            ['bright cyan']),
 
-    ('dribble',         'bright black'),
+    ('debug',           ['bright magenta']),
+
+    ('dribble',         ['bright black']),
 ])
 
