@@ -37,7 +37,6 @@ setup(
     version=PACKAGE_VERSION,
     packages=PACKAGES,
     requires = [
-        'argh (>=0.15.0)',
         'ordereddict (>=1.1)' if sys.version_info <= (2, 7, 0) else 'collections',
     ],
     scripts=['bin/prism'],
@@ -50,7 +49,7 @@ setup(
     url='https://github.com/peterhil/prism',
 
     classifiers = [
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'Intended Audience :: End Users/Desktop',

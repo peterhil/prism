@@ -13,7 +13,7 @@ From Python package index (Pypi_):
 
 or from Github_:
 
-    (sudo) pip install argh watchdog
+    (sudo) pip install watchdog
 
     git clone https://github.com/peterhil/prism.git
 
@@ -31,7 +31,6 @@ All dependencies can be installed with pip_, usually by:
 
 Required (automatically handled by pip):
 
-- argh (argument parsing)
 - ordereddict (if using Python 2.6)
 
 Optional (install manually with pip):
