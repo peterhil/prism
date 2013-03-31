@@ -48,13 +48,19 @@ BACK = 40
 BRIGHT = 60
 
 def code(code, op='m'):
-    return CSI + str(code) + op
+    if code == 0 or code != '':
+        return CSI + str(code) + op
+    else:
+        return ''
 
 def colourcode(name, back=False):
     """
     Return ANSI colour code for a colour name.
     If 'back' is True, returns a background colour.
     """
+    if not name:
+        return ''
+
     parts = str(name).lower().split()
     bright = BRIGHT * int('bright' in parts)
 
@@ -72,7 +78,7 @@ def colourcode(name, back=False):
     return code
 
 def colour(fore='', back=''):
-    return CSI + str(colourcode(fore)) + ';' + str(colourcode(back, back=True)) + 'm'
+    return code(';'.join(filter(None, [str(colourcode(fore)), str(colourcode(back, True))])))
 
 def logo(text, colours='rygcb', repeat=True):
     res = ''

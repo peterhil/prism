@@ -30,5 +30,12 @@ def test_colourcode(code, name):
     assert code + 10 if isinstance(code, int) else '' == colourcode(name, back=True)
 
 def test_colour():
-    assert '\x1b[31;m' == colour('RED')
+    assert '\x1b[31m' == colour('RED')
 
+def test_two_colours():
+    assert '\x1b[30;101m' == colour('black', 'bright red')
+
+def test_empty_colours():
+    assert '' == colour('', '')
+    assert '\x1b[31m' == colour('red', '')
+    assert '\x1b[42m' == colour('', 'green')
