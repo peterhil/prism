@@ -35,14 +35,14 @@ def colourise(line, grep=False, match_only=True):
             for m in reversed(list(matches)):
                 if m.group(1).lower() in list(level_map.keys()):
                     colour_name = level_map[m.group(1).lower()]
-                line = line[0:m.start()] + colour(colour_name) + line[m.start():m.end()] + code(0) + line[m.end():len(line)]
+                line = line[0:m.start()] + colour(*colour_name) + line[m.start():m.end()] + code(0) + line[m.end():len(line)] + code(0)
             return line
         else:
             for level in list(level_map.keys()):
                 if level in s:
                     colour_name = level_map[level]
                     break
-            return colour(colour_name) + line + code(0)
+            return colour(*colour_name) + line + code(0)
     else:
         return '' if grep else line
 
