@@ -104,3 +104,10 @@ Todo
 .. _Github: https://github.com/peterhil/prism/
 .. _Pypi: http://pypi.python.org/pypi/logprism
 .. _pip: http://www.pip-installer.org/
+
+.. image:: https://img.shields.io/pypi/v/logprism.svg
+        :target: https://pypi.python.org/pypi/logprism
+.. image:: https://img.shields.io/pypi/dm/logprism.svg
+        :target: https://pypi.python.org/pypi/logprism
+.. image:: https://img.shields.io/pypi/l/logprism.svg
+        :target: https://pypi.python.org/pypi/logprism
