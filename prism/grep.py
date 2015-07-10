@@ -16,9 +16,10 @@ from prism.colour import colour, code
 from prism.config import level_map
 
 pattern = r""" # Starting characters
-(?:^  |  # Start of line
+(?:
+^     |  # Start of line
 [:\[] |  # One of: |:[|
-(?<=     # Some backtracking?
+(?<=     # Non-capturing group
   [ \"\'=\.]  # One of: | "'=.|
 )
 )
