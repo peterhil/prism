@@ -5,3 +5,5 @@ prism/test/data/
 .coverage
 .tox/
 venv/
+*.pyc
+__pycache__/
