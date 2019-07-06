@@ -15,11 +15,27 @@ import re
 from prism.colour import colour, code
 from prism.config import level_map
 
-pattern = r'(?:^|[:\[]|(?<=[ \"\'=\.]))' + \
+pattern = r""" # Starting characters
+(?:
+^     |  # Start of line
+[:\[] |  # One of: |:[|
+(?<=     # Non-capturing group
+  [ \"\'=\.]  # One of: | "'=.|
+)
+)
+""" + \
     r'(?i)(' + r'|'.join(list(level_map.keys())) + r')' + \
-    r'(?:[:\]]|$]|(?=[ \"\'=]))'
+    r"""  # Ending characters
+    (?:      # Non-capturing group
+    [:\]] |  # One of: |:]|
+    $     |  # End of line
+      (?=
+        [ \"\'=]  # One of: | "'=|
+      )
+    )
+"""
 
-re_pattern = re.compile(pattern, flags = re.UNICODE | re.IGNORECASE)
+re_pattern = re.compile(pattern, flags = re.UNICODE | re.IGNORECASE | re.VERBOSE)
 
 def search(line):
     return re.findall(re_pattern, line)

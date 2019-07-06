@@ -5,6 +5,7 @@
 .coverage
 .tox/
 MANIFEST
+__pycache__/
 build/
 dist/
 prism/test/data/
