@@ -8,5 +8,5 @@ MANIFEST
 __pycache__/
 build/
 dist/
-prism/test/data/
+test-logs/
 venv/
