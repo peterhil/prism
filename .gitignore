@@ -1,6 +1,9 @@
 *.bin
 *.build/
+*.dist/
 *.pyc
+*.pyi
+*.so
 .DS_Store
 .coverage
 .tox/
