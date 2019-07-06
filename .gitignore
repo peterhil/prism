@@ -1,7 +1,11 @@
+*.bin
+*.build/
+*.pyc
+.DS_Store
+.coverage
+.tox/
 MANIFEST
 build/
 dist/
 prism/test/data/
-.coverage
-.tox/
 venv/
