@@ -21,12 +21,13 @@ if options.use_watchdog:
 
 # Unbuffered I/O not allowed on Python 3
 # See http://bugs.python.org/issue11633 for conversation
-if sys.version_info <= (3, 0) and type(sys.stdout) == 'file':
-    sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+if sys.version_info <= (3, 0) and type(sys.stdout) == "file":
+    sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
+
 
 def outputlines(fi, grep=False, match_only=False, watch=True):
     try:
-        if watch and (fi == '-' or fi == sys.stdin):
+        if watch and (fi == "-" or fi == sys.stdin):
             fi = sys.stdin
             while 1:
                 try:
@@ -43,6 +44,7 @@ def outputlines(fi, grep=False, match_only=False, watch=True):
         log.error(e)
         quit()
 
+
 def tail_generator(fi, grep=False, match_only=False):
     while 1:
         try:
@@ -55,30 +57,37 @@ def tail_generator(fi, grep=False, match_only=False):
             fi.close()
             quit()
 
+
 def tail():
     """Simple tail -f like function, that will wait for input"""
 
     log.info("Using TAIL. Press ^C to quit. For help, see 'prism -h'.")
     gen = tail_generator(
-        fileinput.input(sys.argv[1:], bufsize = options.buffer_size),
-        grep = options.grep_opt,
-        match_only = options.match_opt
+        fileinput.input(sys.argv[1:], bufsize=options.buffer_size),
+        grep=options.grep_opt,
+        match_only=options.match_opt,
     )
     while 1:
         print(next(gen))
 
+
 def watch_output(event):
     print(("\n==> %s <==" % os.path.basename(event.src_path)))
-    outputlines(fileinput.input(event.src_path), grep=options.grep_opt, match_only=options.match_opt)
+    outputlines(
+        fileinput.input(event.src_path),
+        grep=options.grep_opt,
+        match_only=options.match_opt,
+    )
+
 
 def watch():
     if not options.use_watchdog:
         log.error("Watchdog not installed.")
         quit()
 
-    fi = fileinput.input(sys.argv[1:], bufsize = options.buffer_size)
+    fi = fileinput.input(sys.argv[1:], bufsize=options.buffer_size)
     paths = fi._files
-    log.info("Using FILEINPUT with WATCHDOG for files: %s" % (', '.join(paths),))
+    log.info("Using FILEINPUT with WATCHDOG for files: %s" % (", ".join(paths),))
 
     log.debug("Buffer size: %s" % fi._bufsize)
 
@@ -88,7 +97,7 @@ def watch():
     recursive = False
 
     for p in paths:
-        if p == '-' or p == sys.stdin:
+        if p == "-" or p == sys.stdin:
             log.error("Can't mix stdin with file arguments. Quitting.")
             quit()
         else:
@@ -98,7 +107,9 @@ def watch():
             else:
                 log.info("Will schedule file '%s'" % p)
                 recursive = False
-            p = os.path.dirname(os.path.abspath(p)) # Watchdog doesn't notify of file changes?
+            p = os.path.dirname(
+                os.path.abspath(p)
+            )  # Watchdog doesn't notify of file changes?
             observer.schedule(event_handler, path=p, recursive=recursive)
 
     observer.start()
@@ -109,4 +120,3 @@ def watch():
         observer.stop()
         quit()
     observer.join()
-

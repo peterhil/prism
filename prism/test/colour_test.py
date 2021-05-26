@@ -10,32 +10,39 @@
 import pytest
 from prism.colour import code, colour, colourcode
 
-@pytest.mark.parametrize(("code", "name"), [
-    # invalid
-    ['', None],
-    ['', ''],
-    ['', 'invalid'],
-    ['', 'bright invalid'],
-    # valid
-    [30, 'BLACK'],
-    [31, 'red'],
-    # ...
-    [37, 'white'],
-    # bright
-    [91, 'BRIGHT RED'],
-    [96, 'foo bright cyan red bar'],
-])
+
+@pytest.mark.parametrize(
+    ("code", "name"),
+    [
+        # invalid
+        ["", None],
+        ["", ""],
+        ["", "invalid"],
+        ["", "bright invalid"],
+        # valid
+        [30, "BLACK"],
+        [31, "red"],
+        # ...
+        [37, "white"],
+        # bright
+        [91, "BRIGHT RED"],
+        [96, "foo bright cyan red bar"],
+    ],
+)
 def test_colourcode(code, name):
     assert code == colourcode(name)
-    assert code + 10 if isinstance(code, int) else '' == colourcode(name, back=True)
+    assert code + 10 if isinstance(code, int) else "" == colourcode(name, back=True)
+
 
 def test_colour():
-    assert '\x1b[31m' == colour('RED')
+    assert "\x1b[31m" == colour("RED")
+
 
 def test_two_colours():
-    assert '\x1b[30;101m' == colour('black', 'bright red')
+    assert "\x1b[30;101m" == colour("black", "bright red")
+
 
 def test_empty_colours():
-    assert '' == colour('', '')
-    assert '\x1b[31m' == colour('red', '')
-    assert '\x1b[42m' == colour('', 'green')
+    assert "" == colour("", "")
+    assert "\x1b[31m" == colour("red", "")
+    assert "\x1b[42m" == colour("", "green")
