@@ -10,3 +10,4 @@ build/
 dist/
 prism/test/data/
 venv/
+*.egg-info/
