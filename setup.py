@@ -10,13 +10,19 @@
 from __future__ import with_statement
 
 import sys
+
 from distutils.core import setup, Command
 
 from prism import VERSION
 
+
 PACKAGE_NAME = "logprism"
 PACKAGE_VERSION = VERSION
 PACKAGES = ["prism"]
+
+
+python2 = sys.version_info < (3, 0, 0)
+
 
 with open("README.rst", "r") as readme:
     README_TEXT = readme.read()
@@ -44,8 +50,16 @@ setup(
     version=PACKAGE_VERSION,
     packages=PACKAGES,
     requires=[
-        "ordereddict (>=1.1)" if sys.version_info <= (2, 7, 0) else "collections",
+        "ordereddict (>=1.1)" if python2 else "collections",
     ],
+    extras_require={
+        "test": [
+            "pytest>=6.2.4",
+        ],
+        "watchdog": [
+            "watchdog>=2.1.2",
+        ],
+    },
     scripts=["bin/prism"],
     description="Prism – Colourise log files (with ANSI characters codes)",
     long_description=README_TEXT,

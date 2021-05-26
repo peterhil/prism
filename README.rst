@@ -11,6 +11,10 @@ From Python package index (Pypi_):
 
     (sudo) pip install logprism
 
+Optionally with watchdog:
+
+    (sudo) pip install logprism[watchdog]
+
 or from Github_:
 
     (sudo) pip install watchdog  # optional

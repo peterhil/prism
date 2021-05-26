@@ -18,6 +18,7 @@ from prism.log import log
 from prism.grep import colourise
 
 if options.use_watchdog:
+    from watchdog.observers import Observer
     from prism.events import PrismEventHandler
 
 # Unbuffered I/O not allowed on Python 3
