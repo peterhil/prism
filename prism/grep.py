@@ -58,11 +58,11 @@ def colourise(line, grep=False, match_only=True):
                 if m.group(1).lower() in list(level_map.keys()):
                     colour_name = level_map[m.group(1).lower()]
                 line = (
-                    line[0 : m.start()]
+                    line[0:m.start()]
                     + colour(*colour_name)
-                    + line[m.start() : m.end()]
+                    + line[m.start():m.end()]
                     + code(0)
-                    + line[m.end() : len(line)]
+                    + line[m.end():len(line)]
                     + code(0)
                 )
             return line

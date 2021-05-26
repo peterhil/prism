@@ -16,7 +16,7 @@ if sys.version_info < (3, 0):
 
 __all__ = ["code", "colourcode", "colour"]
 __doc__ = """This module generates ANSI colour and character codes for terminals.
-See: http://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes"""
+See: http://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes"""  # noqa: E501
 
 CSI = "\x1b["
 
@@ -78,9 +78,12 @@ def colourcode(name, back=False):
 
 
 def colour(fore="", back=""):
-    return code(
-        ";".join(filter(None, [str(colourcode(fore)), str(colourcode(back, True))]))
-    )
+    colours = [
+        str(colourcode(fore)),
+        str(colourcode(back, True))
+    ]
+
+    return code(";".join(filter(None, colours)))
 
 
 def logo(text, colours="rygcb", repeat=True):
@@ -90,6 +93,7 @@ def logo(text, colours="rygcb", repeat=True):
         colours *= int(math.ceil(len(text) / len(colours)))
     for c, letter in zip(colours, text):
         res += "{0} {1} ".format(colour(c, "bright " + c), letter)
+
     return res + code(0)
 
 

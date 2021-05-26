@@ -35,14 +35,14 @@ USAGE
 Options:
 ---------
 -g   show only matched lines (like grep)
--m   only colour matched parts of lines (default: colourise whole line)\n"""
+-m   only colour matched parts of lines (default: colourise whole line)\n"""  # noqa: E501
     + (
         "-w   use watchdog to monitor for changes (acts like tail -f)"
         if options.use_watchdog
         else ""
     )
     + """
--t   use tail function (use 'prism -t test.log' instead of 'tail -f test.log | prism')
+-t   use tail function (use 'prism -t test.log' instead of 'tail -f test.log | prism')  # noqa: E501
 
 -h   this help
 -d   enable debug logging
@@ -103,11 +103,19 @@ def main():
         tail()
     elif len(sys.argv) == 1 or len(sys.argv) == 2 and sys.argv[1] == "-":
         log.info("Using STDIN. Press ^C to quit. For help, see 'prism -h'.")
-        outputlines(sys.stdin, grep=options.grep_opt, match_only=options.match_opt)
+        outputlines(
+            sys.stdin,
+            grep=options.grep_opt,
+            match_only=options.match_opt
+        )
     elif options.use_watchdog and len(sys.argv) > 1 and sys.argv[1] == "-w":
         sys.argv.pop(1)
         watch()
     else:
         log.info("Using fileinput.")
         fi = fileinput.input(sys.argv[1:], bufsize=options.buffer_size)
-        outputlines(fi, grep=options.grep_opt, match_only=options.match_opt)
+        outputlines(
+            fi,
+            grep=options.grep_opt,
+            match_only=options.match_opt
+        )

@@ -32,7 +32,8 @@ from prism.colour import colour, colourcode
 )
 def test_colourcode(code, name):
     assert code == colourcode(name)
-    assert code + 10 if isinstance(code, int) else "" == colourcode(name, back=True)
+    expected = code + 10 if isinstance(code, int) else ""
+    assert expected == colourcode(name, back=True)
 
 
 def test_colour():

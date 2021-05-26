@@ -39,7 +39,12 @@ class PrismEventHandler(FileSystemEventHandler):
 
         # TODO handle renames
         what = "directory" if event.is_directory else "file"
-        log.info("Moved %s: from %s to %s", what, event.src_path, event.dest_path)
+        log.info(
+            "Moved %s: from %s to %s",
+            what,
+            event.src_path,
+            event.dest_path,
+        )
 
     def on_created(self, event):
         super(PrismEventHandler, self).on_created(event)

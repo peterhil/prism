@@ -1,5 +1,10 @@
 #! /usr/bin/env python
 
+import sys
+import base64
+import zlib
+
+
 sources = """
 eNrsvWuXI1dyIDa7a6+8sLWS7LXs9UrrJMq9mclGoaua5MwIS3Dc0+yWWuKjD7tbok5NGcwCslA5
 BWSiMxNdVTuijv+Jf46PP/jT/gP/EsfrPvMmgOohZ+RzXGRXAZn3ETdu3LgRceNG/O///Pu3P0ne
@@ -2414,10 +2419,6 @@ u/9FgwqLyrsaXHwqpSyTiBsOzuSpmLduA32N1N9mCdluHLvbpdaDoKH4RW5GosYGRwAIakdrszfH
 8kAskzZZLJMPp4pF7p0bShUIFUmXCMgId5saM4nFnFlcITcMPFEXvvu7fT+/2/nqPkU8HVpJ64zo
 c4UwcO6ydQ3Hopt3Oj60TMS0sEefvk85Qm4LZmHMFngnZ9fHOXZavpCD9OZ/7ov/BxlwpW8=
 """
-
-import sys
-import base64
-import zlib
 
 
 class DictImporter(object):
