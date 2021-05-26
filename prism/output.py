@@ -89,16 +89,13 @@ def watch():
 
     fi = fileinput.input(sys.argv[1:], bufsize=options.buffer_size)
     paths = fi._files
-    log.info(
-        "Using FILEINPUT with WATCHDOG for files: %s" % (", ".join(paths),)
-    )
 
+    msg = "Using FILEINPUT with WATCHDOG for files: %s"
+    log.info(msg % (", ".join(paths),))
     log.debug("Buffer size: %s" % fi._bufsize)
 
-    event_handler = PrismEventHandler(
-        [os.path.abspath(p) for p in paths],
-        watch_output
-    )
+    abs_paths = [os.path.abspath(p) for p in paths]
+    event_handler = PrismEventHandler(abs_paths, watch_output)
     observer = Observer()
     recursive = False
 

@@ -2477,4 +2477,4 @@ if __name__ == "__main__":
     sys.meta_path.append(importer)
 
     entry = "import py; raise SystemExit(py.test.cmdline.main())"
-    do_exec(entry, locals())    # noqa: F821 (undefined name)
+    do_exec(entry, locals())  # noqa: F821 (undefined name)

@@ -78,10 +78,7 @@ def colourcode(name, back=False):
 
 
 def colour(fore="", back=""):
-    colours = [
-        str(colourcode(fore)),
-        str(colourcode(back, True))
-    ]
+    colours = [str(colourcode(fore)), str(colourcode(back, True))]
 
     return code(";".join(filter(None, colours)))
 

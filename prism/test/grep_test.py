@@ -13,8 +13,8 @@ from prism.grep import pattern, search
 def log_lines():
     return [
         "[Sun Apr 08 12:51:52 2012] [notice] Digest: done",
-        "[Mon Jul 11 09:26:13 2011] Error: [client ::1]" +
-        "File does not exist: /Library/WebServer/Documents/favicon.ico",
+        "[Mon Jul 11 09:26:13 2011] Error: [client ::1]"
+        + "File does not exist: /Library/WebServer/Documents/favicon.ico",
     ]
 
 

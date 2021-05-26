@@ -98,24 +98,23 @@ def main():
             sys.argv.pop(sys.argv.index("-g"))
 
     log.debug("Processed args: %s" % sys.argv)
+    opts = dict(
+        grep=options.grep_opt,
+        match_only=options.match_opt,
+    )
 
     if options.tail_opt:
         tail()
+
     elif len(sys.argv) == 1 or len(sys.argv) == 2 and sys.argv[1] == "-":
         log.info("Using STDIN. Press ^C to quit. For help, see 'prism -h'.")
-        outputlines(
-            sys.stdin,
-            grep=options.grep_opt,
-            match_only=options.match_opt
-        )
+        outputlines(sys.stdin, **opts)
+
     elif options.use_watchdog and len(sys.argv) > 1 and sys.argv[1] == "-w":
         sys.argv.pop(1)
         watch()
+
     else:
         log.info("Using fileinput.")
         fi = fileinput.input(sys.argv[1:], bufsize=options.buffer_size)
-        outputlines(
-            fi,
-            grep=options.grep_opt,
-            match_only=options.match_opt
-        )
+        outputlines(fi, **opts)
