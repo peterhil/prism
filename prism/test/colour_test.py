@@ -8,7 +8,8 @@
 # file that was distributed with this source code.
 
 import pytest
-from prism.colour import code, colour, colourcode
+
+from prism.colour import colour, colourcode
 
 
 @pytest.mark.parametrize(

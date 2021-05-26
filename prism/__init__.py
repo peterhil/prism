@@ -11,17 +11,16 @@ from __future__ import print_function
 
 import fileinput
 import logging
-import os
 import sys
 
-from prism.config import options
 from prism.colour import prism_logo
+from prism.config import options
 from prism.output import log, outputlines, tail, watch
 
 try:
     __import__("watchdog")
     options.use_watchdog = True
-except ImportError as e:
+except ImportError:
     pass
 
 

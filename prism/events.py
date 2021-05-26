@@ -7,11 +7,8 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-import fileinput
 import os
-import sys
 
-from prism import config
 from prism.log import log
 from watchdog.events import FileSystemEventHandler
 

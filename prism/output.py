@@ -12,6 +12,7 @@ import os
 import sys
 import time
 
+
 from prism.config import options
 from prism.log import log
 from prism.grep import colourise
