@@ -19,7 +19,6 @@ __all__ = ["level_map", "options"]
 
 class options(object):
     use_watchdog = False
-    buffer_size = 1
     grep_opt = False
     match_opt = False
     tail_opt = False

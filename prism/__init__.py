@@ -116,5 +116,5 @@ def main():
 
     else:
         log.info("Using fileinput.")
-        fi = fileinput.input(sys.argv[1:], bufsize=options.buffer_size)
+        fi = fileinput.input(sys.argv[1:])
         outputlines(fi, **opts)

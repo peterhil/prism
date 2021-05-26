@@ -65,7 +65,7 @@ def tail():
 
     log.info("Using TAIL. Press ^C to quit. For help, see 'prism -h'.")
     gen = tail_generator(
-        fileinput.input(sys.argv[1:], bufsize=options.buffer_size),
+        fileinput.input(sys.argv[1:]),
         grep=options.grep_opt,
         match_only=options.match_opt,
     )
@@ -87,12 +87,11 @@ def watch():
         log.error("Watchdog not installed.")
         quit()
 
-    fi = fileinput.input(sys.argv[1:], bufsize=options.buffer_size)
+    fi = fileinput.input(sys.argv[1:])
     paths = fi._files
 
     msg = "Using FILEINPUT with WATCHDOG for files: %s"
     log.info(msg % (", ".join(paths),))
-    log.debug("Buffer size: %s" % fi._bufsize)
 
     abs_paths = [os.path.abspath(p) for p in paths]
     event_handler = PrismEventHandler(abs_paths, watch_output)
