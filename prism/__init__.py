@@ -24,7 +24,7 @@ except ImportError:
     pass
 
 
-VERSION = "0.1.2"
+VERSION = "0.2.0"
 
 __all__ = ["usage", "main"]
 __doc__ = (
