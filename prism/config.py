@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# encoding: utf-8
 #
 # Copyright (c) 2012, Peter Hillerström <peter.hillerstrom@gmail.com>
 # All rights reserved. This software is licensed under 3-clause BSD license.
@@ -17,7 +16,7 @@ else:
 __all__ = ["level_map", "options"]
 
 
-class options(object):
+class options:
     grep_opt = False
     match_opt = False
     tail_opt = False

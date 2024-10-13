@@ -1,5 +1,4 @@
 #!/usr/bin/env python -u
-# encoding: utf-8
 #
 # Copyright (c) 2012, Peter Hillerström <peter.hillerstrom@gmail.com>
 # All rights reserved. This software is licensed under 3-clause BSD license.
@@ -35,7 +34,7 @@ def outputlines(fi, grep=False, match_only=False, watch=True):
             for line in fi:
                 sys.stdout.write(colourise(line, grep, match_only))
 
-    except IOError as e:
+    except OSError as e:
         log.error(e)
         quit()
 
@@ -67,7 +66,7 @@ def tail():
 
 
 def watch_output(event):
-    print(("\n==> %s <==" % os.path.basename(event.src_path)))
+    print("\n==> %s <==" % os.path.basename(event.src_path))
     outputlines(
         fileinput.input(event.src_path),
         grep=options.grep_opt,

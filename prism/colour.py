@@ -1,5 +1,4 @@
 #!/usr/bin/env python -u
-# encoding: utf-8
 #
 # Copyright (c) 2012, Peter Hillerström <peter.hillerstrom@gmail.com>
 # All rights reserved. This software is licensed under 3-clause BSD license.
@@ -9,10 +8,6 @@
 
 import math
 import sys
-
-if sys.version_info < (3, 0):
-    from itertools import ifilter as filter
-    from itertools import izip as zip
 
 __all__ = ["code", "colourcode", "colour"]
 __doc__ = """This module generates ANSI colour and character codes for terminals.
@@ -89,12 +84,12 @@ def logo(text, colours="rygcb", repeat=True):
         # Repeat colours string to make it at least as long as text
         colours *= int(math.ceil(len(text) / len(colours)))
     for c, letter in zip(colours, text):
-        res += "{0} {1} ".format(colour(c, "bright " + c), letter)
+        res += "{} {} ".format(colour(c, "bright " + c), letter)
 
     return res + code(0)
 
 
 def prism_logo(extra=""):
-    return "\n {0}\n  {1} coloured logs {2}  {3}\n".format(
+    return "\n {}\n  {} coloured logs {}  {}\n".format(
         logo("PRISM", "rygcb"), code(7), code(0), extra
     )
