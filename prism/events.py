@@ -22,7 +22,7 @@ class PrismEventHandler(FileSystemEventHandler):
 
     def output(self, event):
         what = "directory" if event.is_directory else "file"
-        log.debug("Got {} event at path '{}'".format(what, event.src_path))
+        log.debug(f"Got {what} event at path '{event.src_path}'")
 
         if what == "file":
             if (
