@@ -18,10 +18,10 @@ __all__ = ["level_map", "options"]
 
 
 class options(object):
-    use_watchdog = False
     grep_opt = False
     match_opt = False
     tail_opt = False
+    watch_opt = False
 
 
 level_map = od(
