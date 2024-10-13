@@ -40,7 +40,7 @@ classifiers = [
 ]
 
 [project.scripts]
-prism = "prism:main"
+prism = "prism.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/peterhil/prism"
