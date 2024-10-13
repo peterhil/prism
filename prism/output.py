@@ -21,11 +21,6 @@ if options.use_watchdog:
     from watchdog.observers import Observer
     from prism.events import PrismEventHandler
 
-# Unbuffered I/O not allowed on Python 3
-# See http://bugs.python.org/issue11633 for conversation
-if sys.version_info <= (3, 0) and type(sys.stdout) == "file":
-    sys.stdout = os.fdopen(sys.stdout.fileno(), "w", 0)
-
 
 def outputlines(fi, grep=False, match_only=False, watch=True):
     try:

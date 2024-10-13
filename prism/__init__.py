@@ -118,3 +118,5 @@ def main():
         log.info("Using fileinput.")
         fi = fileinput.input(sys.argv[1:])
         outputlines(fi, **opts)
+
+    sys.stdout.flush()
