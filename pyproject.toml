@@ -45,6 +45,9 @@ watchdog = [
     "watchdog>=2.1.2",
 ]
 
+[project.scripts]
+prism = "prism:main"
+
 [project.urls]
 Homepage = "https://github.com/peterhil/prism"
 
