@@ -9,42 +9,21 @@ Installation
 
 From Python package index (Pypi_):
 
-    (sudo) pip install logprism
-
-Optionally with watchdog:
-
-    (sudo) pip install logprism[watchdog]
+    pip install logprism
 
 or from Github_:
 
-    (sudo) pip install watchdog  # optional
+    git clone https://github.com/peterhil/prism.git
+    cd prism
+    pip install .
+
+Development installation:
 
     git clone https://github.com/peterhil/prism.git
-
     cd prism
-
-    (sudo) python setyp.py install
-
-
-Dependencies
-------------
-
-All dependencies can be installed with pip_, usually by:
-
-    pip install some-package
-
-Required (automatically handled by pip):
-
-- ordereddict (if using Python 2.6)
-
-Optional (install manually with pip):
-
-- watchdog (watch files and directories with the -w option. Recommended for Python 2.x only – doesn’t work with Python 3)
-
-Developers only:
-
-- pytest (test framework)
-- tox (continuous integration)
+    python3.10 -m venv --prompt prism310 venv/py310
+    source ./venv/py310/bin/activate
+    pip install --editable .
 
 
 Usage examples
@@ -88,7 +67,7 @@ Test
 
 Run unit tests:
 
-    python setup.py test
+    pytest
 
 Run continuous integration with tox (from an activated virtualenv, use tox -r to recreate CI envs):
 
@@ -107,7 +86,6 @@ Todo
 
 .. _Github: https://github.com/peterhil/prism/
 .. _Pypi: http://pypi.python.org/pypi/logprism
-.. _pip: http://www.pip-installer.org/
 
 .. image:: https://img.shields.io/pypi/v/logprism.svg
         :target: https://pypi.python.org/pypi/logprism
