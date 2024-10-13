@@ -9,6 +9,7 @@
 import logging
 import sys
 
+
 log = logging.getLogger("Prism")
 log.addHandler(logging.StreamHandler(sys.stderr))
 log.setLevel(logging.INFO)

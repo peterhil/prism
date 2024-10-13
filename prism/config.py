@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python -u
 #
 # Copyright (c) 2012, Peter Hillerström <peter.hillerstrom@gmail.com>
 # All rights reserved. This software is licensed under 3-clause BSD license.
@@ -6,14 +6,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-import sys
-
-if sys.version_info >= (2, 7, 0):
-    from collections import OrderedDict as od
-else:
-    from ordereddict import OrderedDict as od
-
 __all__ = ["level_map", "options"]
+
+
+from collections import OrderedDict as od
 
 
 class options:

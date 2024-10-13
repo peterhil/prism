@@ -6,18 +6,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-
 __all__ = ["usage", "main"]
-
-import fileinput
-import logging
-import sys
-
-from prism.colour import prism_logo
-from prism.config import options
-from prism.output import log, outputlines, tail, watch
-from prism.__version__ import __version__
-
 __doc__ = """Prism – colourise log levels and other keys on log files (with ANSI characters codes)
 
 USAGE
@@ -49,6 +38,15 @@ Credits:
 Copyright (c) 2012, Peter Hillerström
 Homepage: https://github.com/peterhil/prism
 """
+
+import fileinput
+import logging
+import sys
+
+from prism.colour import prism_logo
+from prism.config import options
+from prism.output import log, outputlines, tail, watch
+from prism.__version__ import __version__
 
 
 def usage():
