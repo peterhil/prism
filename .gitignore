@@ -1,6 +1,7 @@
 *.bin
 *.build/
 *.dist/
+*.egg-info/
 *.pyc
 *.pyi
 *.so
@@ -11,6 +12,14 @@ MANIFEST
 __pycache__/
 build/
 dist/
-test-logs/
+
+# Emacs
+*~
+.\#*
+TAGS
+\#*\#
+
+# Environments
+.direnv/
 venv/
-*.egg-info/
+.pdm-python
