@@ -16,6 +16,7 @@ import sys
 from prism.colour import prism_logo
 from prism.config import options
 from prism.output import log, outputlines, tail, watch
+from prism.__version__ import __version__
 
 try:
     __import__("watchdog")
@@ -23,8 +24,6 @@ try:
 except ImportError:
     pass
 
-
-VERSION = "0.2.0"
 
 __all__ = ["usage", "main"]
 __doc__ = (
@@ -78,7 +77,7 @@ def usage():
 
 
 def main():
-    log.info(prism_logo("version: " + VERSION))
+    log.info(prism_logo("version: " + __version__))
 
     if len(sys.argv) > 1:
         if "-h" in sys.argv:

@@ -1,0 +1,53 @@
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[project]
+name = "logprism"
+dynamic = ["version"]
+description = "Prism – Colourise log files (with ANSI characters codes)"
+authors = [
+    {name = "Peter Hillerström", email = "peter.hillerstrom@gmail.com"},
+]
+dependencies = []
+requires-python = ">=3.8"
+readme = "README.rst"
+license = {text = "BSD License"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3",
+    "Topic :: Internet :: Log Analysis",
+    "Topic :: Software Development :: Bug Tracking",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Testing",
+    "Topic :: System :: Logging",
+    "Topic :: System :: Monitoring",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Text Processing :: Filters",
+    "Topic :: Utilities",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=6.2.4",
+]
+watchdog = [
+    "watchdog>=2.1.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/peterhil/prism"
+
+[tool.pdm]
+distribution = true
+version = { source = "file", path = "prism/__version__.py" }
