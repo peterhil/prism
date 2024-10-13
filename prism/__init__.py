@@ -9,6 +9,8 @@
 
 from __future__ import print_function
 
+__all__ = ["usage", "main"]
+
 import fileinput
 import logging
 import sys
@@ -18,14 +20,6 @@ from prism.config import options
 from prism.output import log, outputlines, tail, watch
 from prism.__version__ import __version__
 
-try:
-    __import__("watchdog")
-    options.use_watchdog = True
-except ImportError:
-    pass
-
-
-__all__ = ["usage", "main"]
 __doc__ = (
     """Prism – colourise log levels and other keys on log files (with ANSI characters codes)
 
@@ -34,13 +28,8 @@ USAGE
 Options:
 ---------
 -g   show only matched lines (like grep)
--m   only colour matched parts of lines (default: colourise whole line)\n"""  # noqa: E501
-    + (
-        "-w   use watchdog to monitor for changes (acts like tail -f)"
-        if options.use_watchdog
-        else ""
-    )
-    + """
+-m   only colour matched parts of lines (default: colourise whole line)
+-w   use watchdog to monitor for changes (acts like tail -f)
 -t   use tail function (use 'prism -t test.log' instead of 'tail -f test.log | prism')  # noqa: E501
 
 -h   this help
@@ -54,16 +43,10 @@ prism *.log
 # Watching mode
 tail -f /var/log/system.log | prism
 tail -f /var/log/system.log | prism -
-"""
-    + (
-        """
+
 # Watch a directory with watchdog
 prism -w .
-"""
-        if options.use_watchdog
-        else ""
-    )
-    + """
+
 Credits:
 --------
 Copyright (c) 2012, Peter Hillerström
@@ -95,6 +78,9 @@ def main():
         if "-g" in sys.argv:
             options.grep_opt = True
             sys.argv.pop(sys.argv.index("-g"))
+        if "-w" in sys.argv:
+            options.watch_opt = True
+            sys.argv.pop(sys.argv.index("-w"))
 
     log.debug("Processed args: %s" % sys.argv)
     opts = dict(
@@ -102,16 +88,15 @@ def main():
         match_only=options.match_opt,
     )
 
-    if options.tail_opt:
+    if options.watch_opt:
+        watch()
+
+    elif options.tail_opt:
         tail()
 
     elif len(sys.argv) == 1 or len(sys.argv) == 2 and sys.argv[1] == "-":
         log.info("Using STDIN. Press ^C to quit. For help, see 'prism -h'.")
         outputlines(sys.stdin, **opts)
-
-    elif options.use_watchdog and len(sys.argv) > 1 and sys.argv[1] == "-w":
-        sys.argv.pop(1)
-        watch()
 
     else:
         log.info("Using fileinput.")

@@ -12,14 +12,12 @@ import os
 import sys
 import time
 
-
 from prism.config import options
+from prism.events import PrismEventHandler
 from prism.log import log
 from prism.grep import colourise
 
-if options.use_watchdog:
-    from watchdog.observers import Observer
-    from prism.events import PrismEventHandler
+from watchdog.observers import Observer
 
 
 def outputlines(fi, grep=False, match_only=False, watch=True):
@@ -78,10 +76,6 @@ def watch_output(event):
 
 
 def watch():
-    if not options.use_watchdog:
-        log.error("Watchdog not installed.")
-        quit()
-
     fi = fileinput.input(sys.argv[1:])
     paths = fi._files
 
