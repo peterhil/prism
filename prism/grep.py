@@ -7,9 +7,6 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-# This module generates ANSI character codes for terminals.
-# See: http://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes
-
 import re
 
 from prism.colour import colour, code
