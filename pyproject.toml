@@ -10,7 +10,7 @@ authors = [
     {name = "Peter Hillerström", email = "peter.hillerstrom@gmail.com"},
 ]
 dependencies = []
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 readme = "README.rst"
 license = {text = "BSD License"}
 classifiers = [
@@ -54,3 +54,10 @@ Homepage = "https://github.com/peterhil/prism"
 [tool.pdm]
 distribution = true
 version = { source = "file", path = "prism/__version__.py" }
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest>=8.3.3",
+    "tox>=4.21.2",
+    "twine>=5.1.1",
+]
