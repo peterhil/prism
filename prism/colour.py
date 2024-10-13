@@ -7,7 +7,6 @@
 # file that was distributed with this source code.
 
 import math
-import sys
 
 __all__ = ["code", "colourcode", "colour"]
 __doc__ = """This module generates ANSI colour and character codes for terminals.

@@ -18,8 +18,7 @@ from prism.config import options
 from prism.output import log, outputlines, tail, watch
 from prism.__version__ import __version__
 
-__doc__ = (
-    """Prism – colourise log levels and other keys on log files (with ANSI characters codes)
+__doc__ = """Prism – colourise log levels and other keys on log files (with ANSI characters codes)
 
 USAGE
 
@@ -50,7 +49,6 @@ Credits:
 Copyright (c) 2012, Peter Hillerström
 Homepage: https://github.com/peterhil/prism
 """
-)
 
 
 def usage():
