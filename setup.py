@@ -11,7 +11,7 @@ from __future__ import with_statement
 
 import sys
 
-from distutils.core import setup, Command
+from distutils.core import setup
 
 from prism import VERSION
 
@@ -26,23 +26,6 @@ python2 = sys.version_info < (3, 0, 0)
 
 with open("README.rst", "r") as readme:
     README_TEXT = readme.read()
-
-
-class PyTest(Command):
-    user_options = []
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        import sys
-        import subprocess
-
-        errno = subprocess.call([sys.executable, "runtests.py"])
-        raise SystemExit(errno)
 
 
 setup(
@@ -91,5 +74,4 @@ setup(
         "Topic :: Text Processing :: Filters",
         "Topic :: Utilities",
     ],
-    cmdclass={"test": PyTest},
 )
