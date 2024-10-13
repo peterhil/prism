@@ -39,14 +39,6 @@ classifiers = [
     "Topic :: Utilities",
 ]
 
-[project.optional-dependencies]
-test = [
-    "pytest>=6.2.4",
-]
-watchdog = [
-    "watchdog>=2.1.2",
-]
-
 [project.scripts]
 prism = "prism:main"
 
