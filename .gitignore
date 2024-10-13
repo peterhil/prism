@@ -13,3 +13,4 @@ build/
 dist/
 test-logs/
 venv/
+*.egg-info/

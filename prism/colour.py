@@ -14,44 +14,43 @@ if sys.version_info < (3, 0):
     from itertools import ifilter as filter
     from itertools import izip as zip
 
-__all__ = ['code', 'colourcode', 'colour']
+__all__ = ["code", "colourcode", "colour"]
 __doc__ = """This module generates ANSI colour and character codes for terminals.
-See: http://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes"""
+See: http://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes"""  # noqa: E501
 
-CSI = '\x1b['
+CSI = "\x1b["
 
 COLOUR = {
-    'black'   : 0,
-    'red'     : 1,
-    'green'   : 2,
-    'yellow'  : 3,
-
-    'blue'    : 4,
-    'magenta' : 5,
-    'cyan'    : 6,
-    'white'   : 7,
-
-    'k': 0,
-    'r': 1,
-    'g': 2,
-    'y': 3,
-
-    'b': 4,
-    'm': 5,
-    'c': 6,
-    'w': 7,
-    }
+    "black": 0,
+    "red": 1,
+    "green": 2,
+    "yellow": 3,
+    "blue": 4,
+    "magenta": 5,
+    "cyan": 6,
+    "white": 7,
+    "k": 0,
+    "r": 1,
+    "g": 2,
+    "y": 3,
+    "b": 4,
+    "m": 5,
+    "c": 6,
+    "w": 7,
+}
 
 # Offsets
 FORE = 30
 BACK = 40
 BRIGHT = 60
 
-def code(code, op='m'):
-    if code == 0 or code != '':
+
+def code(code, op="m"):
+    if code == 0 or code != "":
         return CSI + str(code) + op
     else:
-        return ''
+        return ""
+
 
 def colourcode(name, back=False):
     """
@@ -59,10 +58,10 @@ def colourcode(name, back=False):
     If 'back' is True, returns a background colour.
     """
     if not name:
-        return ''
+        return ""
 
     parts = str(name).lower().split()
-    bright = BRIGHT * int('bright' in parts)
+    bright = BRIGHT * int("bright" in parts)
 
     try:
         colourname = next(filter(lambda s: s in COLOUR, parts), None)
@@ -73,22 +72,29 @@ def colourcode(name, back=False):
         colour = COLOUR.get(colourname) + (BACK if back else FORE)
         code = bright + colour
     else:
-        code = ''
+        code = ""
 
     return code
 
-def colour(fore='', back=''):
-    return code(';'.join(filter(None, [str(colourcode(fore)), str(colourcode(back, True))])))
 
-def logo(text, colours='rygcb', repeat=True):
-    res = ''
+def colour(fore="", back=""):
+    colours = [str(colourcode(fore)), str(colourcode(back, True))]
+
+    return code(";".join(filter(None, colours)))
+
+
+def logo(text, colours="rygcb", repeat=True):
+    res = ""
     if repeat:
         # Repeat colours string to make it at least as long as text
         colours *= int(math.ceil(len(text) / len(colours)))
     for c, letter in zip(colours, text):
-        res += '{0} {1} '.format(colour(c, 'bright ' + c), letter)
+        res += "{0} {1} ".format(colour(c, "bright " + c), letter)
+
     return res + code(0)
 
-def prism_logo(extra=''):
-    return "\n {0}\n  {1} coloured logs {2}  {3}\n".format(logo('PRISM', 'rygcb'), code(7), code(0), extra)
 
+def prism_logo(extra=""):
+    return "\n {0}\n  {1} coloured logs {2}  {3}\n".format(
+        logo("PRISM", "rygcb"), code(7), code(0), extra
+    )
