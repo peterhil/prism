@@ -22,7 +22,7 @@ pattern = (
 )
 )
 """
-    + r"(?i:"
+    + r"("
     + r"|".join(list(level_map.keys()))
     + r")"
     + r"""  # Ending characters
