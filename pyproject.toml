@@ -9,7 +9,9 @@ description = "Prism – Colourise log files (with ANSI characters codes)"
 authors = [
     {name = "Peter Hillerström", email = "peter.hillerstrom@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "watchdog>=5.0.3",
+]
 requires-python = ">=3.9"
 readme = "README.rst"
 license = {text = "BSD License"}
