@@ -11,6 +11,7 @@ import re
 from prism.colour import colour, code
 from prism.config import level_map
 
+
 pattern = (
     r""" # Starting characters
 (?:

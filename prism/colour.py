@@ -6,12 +6,13 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-import math
-import sys
+"""This module generates ANSI colour and character codes for terminals.
+See: http://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes"""
 
 __all__ = ["code", "colourcode", "colour"]
-__doc__ = """This module generates ANSI colour and character codes for terminals.
-See: http://en.wikipedia.org/wiki/ANSI_escape_code#CSI_codes"""  # noqa: E501
+
+import math
+
 
 CSI = "\x1b["
 
