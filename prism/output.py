@@ -38,33 +38,6 @@ def outputlines(fi, grep=False, matches=False, watch=True):
         fi.close()
 
 
-def tail_generator(fi, grep=False, matches=False):
-    while 1:
-        try:
-            if line := fi.readline():
-                yield colourise(line.rstrip(), grep, matches)
-            else:
-                time.sleep(0.00125)
-                continue
-        except KeyboardInterrupt:
-            quit()
-        finally:
-            fi.close()
-
-
-def tail_output(inputs, grep=False, matches=False):
-    """Simple tail -f like function, that will wait for input"""
-
-    log.info("Using TAIL. Press ^C to quit. For help, see 'prism -h'.")
-    gen = tail_generator(
-        fileinput.input(inputs),
-        grep=grep,
-        matches=matches,
-    )
-    while 1:
-        print(next(gen))
-
-
 def get_watch_handler(grep=False, matches=False):
     def watch_callback(event):
         print("\n==> %s <==" % os.path.basename(event.src_path))

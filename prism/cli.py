@@ -18,20 +18,18 @@ import sys
 from argh.decorators import arg
 
 from prism.colour import prism_logo
-from prism.output import log, outputlines, tail_output, watch_output
+from prism.output import log, outputlines, watch_output
 from prism.__version__ import __version__
 
 
 @arg("--debug", help="enable debug logging")
 @arg("--grep", help="show only matched lines")
 @arg("--matches", help="only colour matched parts of lines")
-@arg("--tail", help="simple tail function")
 @arg("--watch", help="use watchdog to monitor for changes")
 def command(
     *inputs,
     grep=False,
     matches=False,
-    tail=False,
     watch=False,
     debug=False,
 ):
@@ -41,8 +39,6 @@ def command(
 
     if watch:
         watch_output(inputs, grep, matches)
-    elif tail:
-        tail_output(inputs, grep, matches)
     elif not inputs or inputs == ["-"]:
         log.info("Using STDIN. Press ^C to quit. For help, see 'prism -h'.")
         outputlines(sys.stdin, grep, matches)
