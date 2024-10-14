@@ -24,8 +24,7 @@ def outputlines(fi, grep=False, matches=False, watch=True):
             fi = sys.stdin
             while 1:
                 try:
-                    line = fi.readline()
-                    if line:
+                    if line := fi.readline():
                         sys.stdout.write(colourise(line, grep, matches))
                 except KeyboardInterrupt:
                     break
@@ -42,11 +41,11 @@ def outputlines(fi, grep=False, matches=False, watch=True):
 def tail_generator(fi, grep=False, matches=False):
     while 1:
         try:
-            line = fi.readline()
-            if not line:
+            if line := fi.readline():
+                yield colourise(line.rstrip(), grep, matches)
+            else:
                 time.sleep(0.00125)
                 continue
-            yield colourise(line.rstrip(), grep, matches)
         except KeyboardInterrupt:
             quit()
         finally:
