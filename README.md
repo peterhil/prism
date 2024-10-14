@@ -47,7 +47,7 @@ Watch for a whole directory of logs for changes (and new files):
     prism -m -w /opt/local/var/log/nginx/
 
 
-## Pipe into Prism
+### Pipe into Prism
 
 Some programs output normally to stderr, grab that output for prism:
 
