@@ -11,7 +11,6 @@ import os
 import sys
 import time
 
-from prism.config import options
 from prism.events import PrismEventHandler
 from prism.log import log
 from prism.grep import colourise
@@ -19,70 +18,74 @@ from prism.grep import colourise
 from watchdog.observers import Observer
 
 
-def outputlines(fi, grep=False, match_only=False, watch=True):
+def outputlines(fi, grep=False, matches=False, watch=True):
     try:
         if watch and (fi == "-" or fi == sys.stdin):
             fi = sys.stdin
             while 1:
                 try:
-                    line = fi.readline()
-                    if line:
-                        sys.stdout.write(colourise(line, grep, match_only))
+                    if line := fi.readline():
+                        sys.stdout.write(colourise(line, grep, matches))
                 except KeyboardInterrupt:
                     break
         else:
             for line in fi:
-                sys.stdout.write(colourise(line, grep, match_only))
-
+                sys.stdout.write(colourise(line, grep, matches))
     except OSError as e:
         log.error(e)
         quit()
+    finally:
+        fi.close()
 
 
-def tail_generator(fi, grep=False, match_only=False):
+def tail_generator(fi, grep=False, matches=False):
     while 1:
         try:
-            line = fi.readline()
-            if not line:
+            if line := fi.readline():
+                yield colourise(line.rstrip(), grep, matches)
+            else:
                 time.sleep(0.00125)
                 continue
-            yield colourise(line.rstrip(), grep, match_only)
         except KeyboardInterrupt:
-            fi.close()
             quit()
+        finally:
+            fi.close()
 
 
-def tail():
+def tail_output(inputs, grep=False, matches=False):
     """Simple tail -f like function, that will wait for input"""
 
     log.info("Using TAIL. Press ^C to quit. For help, see 'prism -h'.")
     gen = tail_generator(
-        fileinput.input(sys.argv[1:]),
-        grep=options.grep_opt,
-        match_only=options.match_opt,
+        fileinput.input(inputs),
+        grep=grep,
+        matches=matches,
     )
     while 1:
         print(next(gen))
 
 
-def watch_output(event):
-    print("\n==> %s <==" % os.path.basename(event.src_path))
-    outputlines(
-        fileinput.input(event.src_path),
-        grep=options.grep_opt,
-        match_only=options.match_opt,
-    )
+def get_watch_handler(grep=False, matches=False):
+    def watch_callback(event):
+        print("\n==> %s <==" % os.path.basename(event.src_path))
+        outputlines(
+            fileinput.input(event.src_path),
+            grep=grep,
+            matches=matches,
+        )
+
+    return watch_callback
 
 
-def watch():
-    fi = fileinput.input(sys.argv[1:])
+def watch_output(inputs, grep=False, matches=False):
+    fi = fileinput.input(inputs)
     paths = fi._files
 
     msg = "Using FILEINPUT with WATCHDOG for files: %s"
     log.info(msg % (", ".join(paths),))
 
     abs_paths = [os.path.abspath(p) for p in paths]
-    event_handler = PrismEventHandler(abs_paths, watch_output)
+    event_handler = PrismEventHandler(abs_paths, get_watch_handler(grep, matches))
     observer = Observer()
     recursive = False
 
@@ -109,4 +112,6 @@ def watch():
     except KeyboardInterrupt:
         observer.stop()
         quit()
+    finally:
+        fi.close()
     observer.join()

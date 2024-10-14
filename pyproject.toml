@@ -11,6 +11,7 @@ authors = [
 ]
 dependencies = [
     "watchdog>=5.0.3",
+    "argh>=0.31.3",
 ]
 requires-python = ">=3.9"
 readme = "README.md"
