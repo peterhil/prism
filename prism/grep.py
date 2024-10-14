@@ -43,13 +43,13 @@ def search(line):
     return re.findall(re_pattern, line)
 
 
-def colourise(line, grep=False, match_only=True):
+def colourise(line, grep=False, matches=True):
     m = search(line)
     if m:
         s = [s.lower() for s in m]
         colour_name = 0
 
-        if match_only:
+        if matches:
             matches = re.finditer(re_pattern, line)
             for m in reversed(list(matches)):
                 if m.group(1).lower() in list(level_map.keys()):

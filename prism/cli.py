@@ -79,7 +79,7 @@ def main():
     log.debug("Processed args: %s" % sys.argv)
     opts = dict(
         grep=options.grep_opt,
-        match_only=options.match_opt,
+        matches=options.match_opt,
     )
 
     if options.watch_opt:

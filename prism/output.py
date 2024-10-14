@@ -19,7 +19,7 @@ from prism.grep import colourise
 from watchdog.observers import Observer
 
 
-def outputlines(fi, grep=False, match_only=False, watch=True):
+def outputlines(fi, grep=False, matches=False, watch=True):
     try:
         if watch and (fi == "-" or fi == sys.stdin):
             fi = sys.stdin
@@ -27,26 +27,26 @@ def outputlines(fi, grep=False, match_only=False, watch=True):
                 try:
                     line = fi.readline()
                     if line:
-                        sys.stdout.write(colourise(line, grep, match_only))
+                        sys.stdout.write(colourise(line, grep, matches))
                 except KeyboardInterrupt:
                     break
         else:
             for line in fi:
-                sys.stdout.write(colourise(line, grep, match_only))
+                sys.stdout.write(colourise(line, grep, matches))
 
     except OSError as e:
         log.error(e)
         quit()
 
 
-def tail_generator(fi, grep=False, match_only=False):
+def tail_generator(fi, grep=False, matches=False):
     while 1:
         try:
             line = fi.readline()
             if not line:
                 time.sleep(0.00125)
                 continue
-            yield colourise(line.rstrip(), grep, match_only)
+            yield colourise(line.rstrip(), grep, matches)
         except KeyboardInterrupt:
             fi.close()
             quit()
@@ -59,7 +59,7 @@ def tail():
     gen = tail_generator(
         fileinput.input(sys.argv[1:]),
         grep=options.grep_opt,
-        match_only=options.match_opt,
+        matches=options.match_opt,
     )
     while 1:
         print(next(gen))
@@ -70,7 +70,7 @@ def watch_output(event):
     outputlines(
         fileinput.input(event.src_path),
         grep=options.grep_opt,
-        match_only=options.match_opt,
+        matches=options.match_opt,
     )
 
 
