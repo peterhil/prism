@@ -6,17 +6,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-__all__ = ["level_map", "options"]
+__all__ = ["level_map"]
 
 
 from collections import OrderedDict as od
-
-
-class options:
-    grep_opt = False
-    match_opt = False
-    tail_opt = False
-    watch_opt = False
 
 
 level_map = od(

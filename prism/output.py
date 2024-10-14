@@ -11,7 +11,6 @@ import os
 import sys
 import time
 
-from prism.config import options
 from prism.events import PrismEventHandler
 from prism.log import log
 from prism.grep import colourise
@@ -52,37 +51,40 @@ def tail_generator(fi, grep=False, matches=False):
             quit()
 
 
-def tail():
+def tail_output(inputs, grep=False, matches=False):
     """Simple tail -f like function, that will wait for input"""
 
     log.info("Using TAIL. Press ^C to quit. For help, see 'prism -h'.")
     gen = tail_generator(
-        fileinput.input(sys.argv[1:]),
-        grep=options.grep_opt,
-        matches=options.match_opt,
+        fileinput.input(inputs),
+        grep=grep,
+        matches=matches,
     )
     while 1:
         print(next(gen))
 
 
-def watch_output(event):
-    print("\n==> %s <==" % os.path.basename(event.src_path))
-    outputlines(
-        fileinput.input(event.src_path),
-        grep=options.grep_opt,
-        matches=options.match_opt,
-    )
+def get_watch_handler(grep=False, matches=False):
+    def watch_callback(event):
+        print("\n==> %s <==" % os.path.basename(event.src_path))
+        outputlines(
+            fileinput.input(event.src_path),
+            grep=grep,
+            matches=matches,
+        )
+
+    return watch_callback
 
 
-def watch():
-    fi = fileinput.input(sys.argv[1:])
+def watch_output(inputs, grep=False, matches=False):
+    fi = fileinput.input(inputs)
     paths = fi._files
 
     msg = "Using FILEINPUT with WATCHDOG for files: %s"
     log.info(msg % (", ".join(paths),))
 
     abs_paths = [os.path.abspath(p) for p in paths]
-    event_handler = PrismEventHandler(abs_paths, watch_output)
+    event_handler = PrismEventHandler(abs_paths, get_watch_handler(grep, matches))
     observer = Observer()
     recursive = False
 
