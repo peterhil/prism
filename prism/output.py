@@ -47,9 +47,8 @@ def tail_generator(fi, grep=False, matches=False):
                 time.sleep(0.00125)
                 continue
         except KeyboardInterrupt:
-            quit()
-        finally:
             fi.close()
+            quit()
 
 
 def tail_output(inputs, grep=False, matches=False):
