@@ -8,11 +8,11 @@ A command line log colouriser utility.
 
 ## Installation
 
-From Python package index:
+Install from PyPI using `pip`:
 
     pip install logprism
 
-or from Github:
+Install from source:
 
     git clone https://github.com/peterhil/prism.git
     cd prism
@@ -26,19 +26,16 @@ Development installation:
     source ./venv/py310/bin/activate
     pip install --editable .
 
+
 ## Usage examples
 
-Colourise stdin:
+Colourise logs:
 
-    tail -f /var/log/system.log | prism
+    prism /var/log/*.log
 
-Grep some logs for messages with levels:
+Grep logs for only messages with levels:
 
     prism -g /var/log/*.log
-
-Combine with grep command to find just specific levels:
-
-    grep -iE '(warn|error)' /var/log/*.log | prism -g
 
 Match multiple log levels per line:
 
@@ -49,9 +46,21 @@ Watch for a whole directory of logs for changes (and new files):
 
     prism -m -w /opt/local/var/log/nginx/
 
+
+## Pipe into Prism
+
 Some programs output normally to stderr, grab that output for prism:
 
-    python run.py 2>&1 | prism
+    python run.py 2>&1 | prism -m
+
+Colourise tail output:
+
+    tail -f /var/log/*.log | prism
+
+Combine with grep command to find just specific levels:
+
+    grep -iE '(warn|error)' /var/log/*.log | prism
+
 
 ## Test
 
