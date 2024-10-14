@@ -32,10 +32,11 @@ def outputlines(fi, grep=False, matches=False, watch=True):
         else:
             for line in fi:
                 sys.stdout.write(colourise(line, grep, matches))
-
     except OSError as e:
         log.error(e)
         quit()
+    finally:
+        fi.close()
 
 
 def tail_generator(fi, grep=False, matches=False):
@@ -47,8 +48,9 @@ def tail_generator(fi, grep=False, matches=False):
                 continue
             yield colourise(line.rstrip(), grep, matches)
         except KeyboardInterrupt:
-            fi.close()
             quit()
+        finally:
+            fi.close()
 
 
 def tail_output(inputs, grep=False, matches=False):
@@ -111,4 +113,6 @@ def watch_output(inputs, grep=False, matches=False):
     except KeyboardInterrupt:
         observer.stop()
         quit()
+    finally:
+        fi.close()
     observer.join()
