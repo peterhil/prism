@@ -5,10 +5,21 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:f913eb9fe41a72a4a7c309f574133f53db14fb41fa86ad57f6863cd1ab544a0b"
+content_hash = "sha256:dd18466716977955ca831f64c691ab2119618e0462e848f06c4ee3c68dc9905a"
 
 [[metadata.targets]]
 requires_python = ">=3.9"
+
+[[package]]
+name = "argh"
+version = "0.31.3"
+requires_python = ">=3.8"
+summary = "Plain Python functions as CLI commands without boilerplate"
+groups = ["default"]
+files = [
+    {file = "argh-0.31.3-py3-none-any.whl", hash = "sha256:2edac856ff50126f6e47d884751328c9f466bacbbb6cbfdac322053d94705494"},
+    {file = "argh-0.31.3.tar.gz", hash = "sha256:f30023d8be14ca5ee6b1b3eeab829151d7bbda464ae07dc4dd5347919c5892f9"},
+]
 
 [[package]]
 name = "backports-tarfile"
